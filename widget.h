@@ -13,6 +13,10 @@
 #include <QHostAddress>
 #include <QDoubleValidator>
 #include <QRegExpValidator>
+#include <QFileDialog>
+#include <QBuffer>
+#include <QImage>
+#include <QPixmap>
 
 class Widget : public QWidget
 {
@@ -29,6 +33,7 @@ private:
     QTextEdit *logTextEdit;
     QLineEdit *messageLineEdit;
     QPushButton *sendButton;
+    QPushButton *sendImgButton;
 
     QHBoxLayout *topLayout;
     QHBoxLayout *bottomLayout;
@@ -36,10 +41,14 @@ private:
 
     QTcpSocket *socket;
     QByteArray Data;
+    QString filePath;
     void SendToServer(QString str);
+    void SendImgToServer(QString str);
     void connectToS(QString ip, int port);
     void printTE(QString str);
     void printFromServer(QString str);
+    void openFile();
+    quint64 nextBlockSize;
 
 public slots:
     void slotReadyRead();
@@ -47,6 +56,7 @@ public slots:
 
 private slots:
     void ClickedSlot();
+    void ClickedImgSlot();
     void ToggleSlot(bool checked);
 };
 
